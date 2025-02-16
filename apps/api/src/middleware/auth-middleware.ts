@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import { ROLEENUM } from '../types/role-type'
-import { service } from '../services'
+import { service } from '../services';
+
 
 export const authMiddleware = (
   req: Request,
@@ -10,27 +11,28 @@ export const authMiddleware = (
 ) => {
   const bearerToken = req.headers.authorization
   if (!bearerToken?.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Invalid token format' })
+    next( 'Invalid token format' )
   }
 
   const token = bearerToken.split(' ')[1]
   if (!token) {
-    return res.status(401).json({ message: 'No token found' })
+     next('No token found' )
   }
 
-  const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY!) as {
+  const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_KEY!) as {
     id: string
-    roleId:ROLEENUM
   }
+  console.log('decode',decoded)
 
   if (!decoded || !decoded.id) {
-    return res.status(401).json({ message: 'Invalid token' })
+    return next( 'Invalid token' )
   }
   service.authService
     .findUserById(decoded.id)
     .then((res) => {
-      req.userId = res[0].user_id
-      req.roleId = res[0].role_id
+        console.log(res)
+      req.userId = res.id;
+      req.roleId = res.role_id;
       next()
     })
     .catch((err) => next(err))

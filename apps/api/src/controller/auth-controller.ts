@@ -10,18 +10,17 @@ export class AuthController {
   login = async (req: Request, res: Response, next: NextFunction) => {
     const { user, password } = req.body
 
-    const getUserDetail = await this.authService.findUserById(user)
-    console.log('****',  getUserDetail)
+    const getUserDetail = await this.authService.findUserByUser(user)
     if (!getUserDetail) {
       next('Invalid Credentials')
     }
     const isPasswordMatch =  await argon2.verify( getUserDetail.password, password)
-    if (isPasswordMatch) {
+    if (!isPasswordMatch) {
       next('Invalid Credentials')
     }
 
     const jwtPayload = {
-      id: user.id,
+      id: getUserDetail.id,
     }
     const token = jwt.sign(jwtPayload, process.env.JWT_ACCESS_TOKEN_KEY!, {
       expiresIn: +process.env.JWT_ACCESS_TOKEN_EXPIRES!,
@@ -32,7 +31,7 @@ export class AuthController {
     }
     res.status(200).cookie('token', token, options).json({
       msg: 'successful',
-    data: {
+      data: {
         token,
         role_id:getUserDetail.role_id
     },

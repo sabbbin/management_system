@@ -10,6 +10,7 @@ export const verfiyValidation = <T extends ZodRawShape>(
     if (isParsedSuccess.success) {
       next()
     } else {
+         console.log('er',isParsedSuccess.error.errors)
       next({ data: isParsedSuccess.error.errors.map((val) => val.message) })
     }
   }
