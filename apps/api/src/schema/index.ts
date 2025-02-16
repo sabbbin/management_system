@@ -1,6 +1,5 @@
 import { loginSchema } from "./loginSchema";
 
-
-export const  schema={
-    loginSchema
-}
+export const schema = {
+  loginSchema,
+};
