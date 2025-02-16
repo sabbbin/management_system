@@ -14,6 +14,7 @@ export class AuthController {
     if (!getUserDetail) {
       next('Invalid Credentials')
     }
+    console.log('user detail',getUserDetail)
     const isPasswordMatch =  await argon2.verify( getUserDetail.password, password)
     if (!isPasswordMatch) {
       next('Invalid Credentials')

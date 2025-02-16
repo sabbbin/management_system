@@ -15,9 +15,9 @@ userRouter
 
 userRouter.route('/').get(authMiddleware, bodyValidation(paginationSchema, ['pagination']) ,  isAuthorizedRole(ROLEENUM.SUPER_ADMIN),controller.userController.get);
 
-userRouter.route('/').put(controller.userController.update)
+userRouter.route('/:id').put( authMiddleware, isAuthorizedRole(ROLEENUM.SUPER_ADMIN),controller.userController.update)
 
-userRouter.route('/').delete(controller.userController.delete)
+userRouter.route('/:id').delete(authMiddleware,isAuthorizedRole(ROLEENUM.SUPER_ADMIN), controller.userController.delete)
 
 
 

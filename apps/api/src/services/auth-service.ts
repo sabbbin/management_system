@@ -10,7 +10,6 @@ export class AuthService extends BaseDatabase {
     return user[0]
   }
    findUserByUser = async (username: string) => {
-      console.log('user',username)
     const loginQuery = 'Select id, first_name, last_name, role_id , password from users where phone=$1'
     const user = (await this.rawQuery(loginQuery, [username])) as any;
     if (!user || user.length==0) {

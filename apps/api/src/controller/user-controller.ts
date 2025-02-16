@@ -30,44 +30,59 @@ create = async (req: Request, res: Response, next: NextFunction) => {
         next('Error occurs')
       }
       data.password = hashedPass;
-      console.log('data',data)
 
      const newUser=  await this.userService.create(data)
-      console.log('new user', newUser)
-      res.status(200).json({ msg: 'success' })
-    } catch (err) {
-         console.log('err',err)
-      next('Error')
+     if (newUser.length>0) {
+
+         res.status(200).json({ msg: 'success' })
+     } else {
+
+         res.status(200).json({ msg: 'failure' })
+     }
+    } catch (err) {      
+      next(err)
     }
   }
 
   update = async (req: Request, res: Response, next: NextFunction) => {
-    const data = req.body
-    const id = req.params.id
-    const keys = Object.keys(data)
-    let values = Object.values(data)
+    try {
+        const data = req.body;
+        const id = req.params.id;
 
-    if (keys.length === 0) {
-      next('No fields to update')
+        const result= await this.userService.update(id, data);
+         console.log('rsult',result)
+        if (result.length>0 ) {
+            res.json({ msg: 'success' })
+        } else {
+            res.json({ msg: 'failure' })
+        }
+    } catch(err) {
+        next(err)
     }
-    const setClause = keys
-      .map((key, index) => `${key} = $${index + 1}`)
-      .join(', ')
-    const updatequery = `UPDATE users SET ${setClause} WHERE id = $${keys.length + 1} RETURNING *`
-    values.push(id)
-    await this.userService.update(id, setClause)
-    res.json({ msg: 'success' })
   }
 
   delete = async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
-    try {
-     const result=  await this.userService.delete(id)
-      console.log('result',result);
-      res.send('success')
-    } catch (err) {
-      console.error('Error deleting user:', err)
-      throw err
+    const id = req.params.id;
+   
+    if (id!=req.userId) {
+        try {
+         const result=  await this.userService.delete(id);
+         if (result.length>0) {
+
+             res.json({status:'success', 
+                       msg:'User delete successfully'
+             }) 
+         } else {
+              res.json({status:'failure', 
+                       msg:'User does not exit'
+             }) 
+         }
+        } catch (err) {
+          next(err)
+        }
+    } else{
+
+        next('You are not allowed to delete yourself');
     }
   }
 }

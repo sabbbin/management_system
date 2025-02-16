@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodRawShape , ZodObject} from 'zod';
-import { paginationSchema } from '../schema/paginationSchema';
 
 export const bodyValidation = <T extends ZodRawShape>(
   validationSchema: ZodObject<T>, parameter: ('body' | 'pagination')[]=['body']

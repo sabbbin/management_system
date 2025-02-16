@@ -1,5 +1,3 @@
-import { PaginationSchemaType } from "../schema/paginationSchema";
-import { UserSchemaType } from "../schema/userSchema";
 import { BaseDatabase } from "./base-service";
 
 
@@ -18,7 +16,7 @@ export class UserService extends BaseDatabase {
   create = async (data: any) => {
     const insertUserQuery = `
   INSERT INTO users(first_name, last_name, email, role_id, password, phone,
-  dob, gender, address) values ($1,$2,$3,$4,$5, $6, $7,$8, $9)
+  dob, gender, address) values ($1,$2,$3,$4,$5, $6, $7,$8, $9) RETURNING *
  `
     const values = [
       data.first_name,
@@ -36,10 +34,23 @@ export class UserService extends BaseDatabase {
    
   }
   update = async (id: string, data: any) => {
-    // const updatequery = `UPDATE users SET ${setClause} WHERE id = $${keys.length + 1} RETURNING *`;
-    // values.push(id);
-    // const result = await baseQuery(updatequery, values);
-    // return result[0];
+    const updatequery = `UPDATE users SET first_name=$1, last_name=$2, email=$3, role_id=$4, password=$5, phone=$6,
+  dob=$7, gender=$8, address=$9   WHERE id = $10 RETURNING *`;
+   const values = [
+      data.first_name,
+      data.last_name,
+      data.email,
+      data.role_id,
+      data.password,
+      data.phone,
+      data.dob,
+      data.gender,
+      data.address,
+      id
+    ]
+    
+    const result = await this.rawQuery(updatequery, values);
+    return result;
   }
   delete = async (id: string) => {
     const deletequery = 'DELETE FROM users WHERE id = $1 RETURNING *'

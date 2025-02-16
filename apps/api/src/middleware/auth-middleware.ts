@@ -22,7 +22,6 @@ export const authMiddleware = (
   const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_KEY!) as {
     id: string
   }
-  console.log('decode',decoded)
 
   if (!decoded || !decoded.id) {
     return next( 'Invalid token' )
