@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
 const contextClass = {
@@ -13,10 +14,13 @@ const contextClass = {
 	default: "bg-indigo-600",
 };
 
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+  <QueryClientProvider client={queryClient}>
 			<App />
+		</QueryClientProvider>
 		<ToastContainer
 			className='flex flex-col  gap-4'
 			toastClassName={(context) =>

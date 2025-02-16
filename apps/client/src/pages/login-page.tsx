@@ -1,8 +1,8 @@
 import AppField from "../component/ui/app-field";
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTransition } from 'react';
-import { useForm } from 'react-hook-form';
+import { BaseSyntheticEvent, useTransition } from 'react';
+import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
 import { Link, useNavigate } from "react-router-dom";
 import { LoginResponse, loginStateData } from "../store/login-session-store";
 import { axiosInstance } from "../hooks/base-api";
@@ -20,34 +20,23 @@ export enum  RESPONSESTATUSENUM {
     FALLURE= 'failure'
 }
 
+export interface ILoginContent {
+  isPending: boolean;
+  handleSubmitLogin: (e?: BaseSyntheticEvent) => Promise<void>;
+  register: UseFormRegister<LoginSchemaType>;
+  errors: FieldErrors<LoginSchemaType>;
+  type:'user'| 'admin';
+}
 
+ export  function  LoginPage ({
+    handleSubmitLogin,
+    type,
+  register,
+  errors,
+  isPending,
+ }:ILoginContent) {
 
- export default function  LoginPage () {
-
-      const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginSchemaType>({
-    defaultValues: {
-      user: '',
-      password: '',
-    },
-    resolver: zodResolver(loginSchema),
-  });
- const navigate= useNavigate();
-
-  const [pending, startTransition]= useTransition();
-
-
- const handleSubmitFn=(data:LoginSchemaType
- )=>{
   
-    startTransition(()=>{
-
-    })
-
- }
 
 
       return (
@@ -62,7 +51,7 @@ export enum  RESPONSESTATUSENUM {
          </header>
          <main className="flex flex-col ">
      <form
-      onSubmit={handleSubmit(handleSubmitFn)}
+      onSubmit={handleSubmitLogin}
      >
 
           <AppField 
@@ -77,14 +66,17 @@ export enum  RESPONSESTATUSENUM {
          helperText={errors.password?.message}
           label="Password" type='password' />
     
-   <button    className="bg-blue-500 cursor-pointer w-full mt-1 text-white px-4 py-2 rounded-md">{pending?'...':'Login'}</button>
+   <button    className="bg-blue-500 cursor-pointer w-full mt-1 text-white px-4 py-2 rounded-md">{isPending?'...':'Login'}</button>
              
      </form>
          </main>
+          {
+            type=='admin' &&
       <footer className="flex justify-center">
           <p className="text-[12px] text-gray-500">
-               Do you want to create new User? <Link className="text-blue-500" to ='/signup'> register</Link>    </p>
+               Do you want to create new User? <Link className="text-blue-500" to ='/admin/signup'>New Register</Link>    </p>
       </footer>
+          }
     </section>
   );
 }
