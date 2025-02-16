@@ -26,7 +26,6 @@ VALUES
  * @returns {Promise<void> | void}
  */
 exports.down = (pgm) => {
-      pgm.sql("TRUNCATE TABLE IF EXISTS users");
-
+      pgm.sql("TRUNCATE TABLE users RESTART IDENTITY CASCADE");
 
 };

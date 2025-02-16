@@ -17,15 +17,14 @@ exports.up = (pgm) => {
   last_name VARCHAR(255) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(500) NOT NULL,
-  phone VARCHAR(20),
-  dob TIMESTAMP,
+  phone  VARCHAR(20) UNIQUE NOT NULL,
+  dob TIMESTAMP NOT NULL,
   gender VARCHAR(1) NOT NULL CHECK (gender IN ('m', 'f', 'o')),
-  address VARCHAR(256),
-  role_id INTEGER REFERENCES role(id) ,
+  address  VARCHAR(256) NOT NULL,
+  role_id INTEGER NOT NULL REFERENCES role(id) ,
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP DEFAULT NOW()
 )
-
     `)
 
 
