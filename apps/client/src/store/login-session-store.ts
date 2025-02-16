@@ -2,6 +2,7 @@
 
 
 import { create } from 'zustand';
+import {  persist } from "zustand/middleware";
 
 export type loginStateData = 'uncertain' | 'loggedIn' | 'loggedOut';
 
@@ -19,11 +20,13 @@ export interface LoginSession {
 }
 
 
-export const useLoginSessionStore = create<LoginSession>((set) => {
+export const useLoginSessionStore = create<LoginSession>() (
+     persist(
+    (set) => {
 	return {
 		loginData: null,
 		loginState: 'uncertain',
-		userInfo: null,
+	
 		login: (loginData: LoginResponse) => {
 			set({ loginData: loginData, loginState: 'loggedIn' });
 		},
@@ -31,4 +34,9 @@ export const useLoginSessionStore = create<LoginSession>((set) => {
 			set({ loginData: null, loginState: 'loggedOut' });
 		},
 	};
-});
+}
+, {
+    name:'bearStore'
+}
+)
+);

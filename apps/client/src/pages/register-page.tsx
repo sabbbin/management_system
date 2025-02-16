@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AppField from "../component/ui/app-field";
 
 
@@ -9,7 +10,7 @@ export const RegisterPage=()=>{
           <h1 className="text-[24px] font-medium"> Sign up</h1>
           <p className="text-[12px] text-gray-500"> Enter you details below to create your account and get started</p>
          </header>
-         <main className="grid grid-cols-1 gap-4 md:grid-cols-2">
+         <main className="grid grid-cols-1  space-x-4 md:grid-cols-2">
           <AppField label="First Name" />
           <AppField label="Last Name" />
           <AppField label="Email" type='email' />
@@ -28,7 +29,7 @@ export const RegisterPage=()=>{
          </main>
       <footer className="flex justify-center">
           <p className="text-[12px] text-gray-500">
-               Already have a account ?  <a href='/registe' />     </p>
+               Already have a account ?  <Link  className ='text-blue-400' to='/login'> Login</Link>     </p>
       </footer>
     </section>
     );
