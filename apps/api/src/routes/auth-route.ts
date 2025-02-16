@@ -11,6 +11,6 @@ authRouter
     bodyValidation(schema.loginSchema, ["body"]),
     controller.authController.login,
   );
-authRouter.route("/logout").post(controller.authController.logout);
+authRouter.route("/logout").post(controller.authController.login);
 
 export default authRouter;
