@@ -1,0 +1,13 @@
+{
+
+    "compilerOptions": {
+      "module": "NodeNext",
+      "moduleResolution": "nodenext",
+      "rootDir": "./src",
+        "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "outDir": "./dist"
+    },
+    "include": ["src/**/*", "index.d.ts","db.config.js"],
+    "exclude": ["node_modules"],
+  }
