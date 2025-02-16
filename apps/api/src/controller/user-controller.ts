@@ -8,8 +8,9 @@ export class UserController {
 
   get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const data= req.body;
-        const userList= await  this.userService.get(data);
+        const limit=+req.query['limit'];
+        const pageNo= +req.query['pageNo'];
+        const userList= await  this.userService.get(limit, (pageNo-1) * limit);
         res.status(200).json({
             data:userList,
             status:'success'

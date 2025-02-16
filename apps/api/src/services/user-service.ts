@@ -1,16 +1,18 @@
+import { PaginationSchemaType } from "../schema/paginationSchema";
 import { UserSchemaType } from "../schema/userSchema";
 import { BaseDatabase } from "./base-service";
 
 
 export class UserService extends BaseDatabase {
 
-  get = async (data:UserSchemaType) => {
-    return this.rawQuery(`
-     select first_name, last_name, email, phone,
-  dob, gender, address from users
-      `, [data.first_name, data.last_name, data.email, data.phone
-        , data.dob, data.gender, data.address
-      ])
+  get = async (limit:number, offset:number) => {
+
+  return this.rawQuery(`
+  SELECT first_name, last_name, email, phone,
+         dob, gender, address
+  FROM users
+  LIMIT $1 OFFSET $2
+`, [limit,offset]);
   }
 
   create = async (data: any) => {
