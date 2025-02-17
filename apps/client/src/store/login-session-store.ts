@@ -12,7 +12,20 @@ export type LoginResponse={
     username:string;
 }
 
+export const sidebar=[
+    {
+       name:'User' 
+    }
+    ,{
+        name:'Artist'
+    },
+    {
+        name:'Music'
+    }
+]
+
 export interface LoginSession {
+	navItem:(typeof sidebar)[number][]
 	loginData: LoginResponse | null;
 	loginState: loginStateData;
 	login: (loginData: LoginResponse) => void;
@@ -24,11 +37,14 @@ export const useLoginSessionStore = create<LoginSession>() (
      persist(
     (set) => {
 	return {
+		navItem:[],
 		loginData: null,
 		loginState: 'uncertain',
 	
 		login: (loginData: LoginResponse) => {
-			set({ loginData: loginData, loginState: 'loggedIn' });
+			set({ loginData: loginData,
+				 navItem: sidebar.slice(Number(loginData.role_id)-1 ),
+				loginState: 'loggedIn' });
 		},
 		logout: () => {
 			set({ loginData: null, loginState: 'loggedOut' });

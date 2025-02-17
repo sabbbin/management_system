@@ -7,10 +7,10 @@ export const bodyValidation = <T extends ZodRawShape>(
 ) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const data = req.body;
+    console.log('data',data)
     if (parameter.includes("body")) {
       const isParsedSuccess = validationSchema.safeParse(data);
       if (!isParsedSuccess.success) {
-        console.log("er", isParsedSuccess.error.errors);
         next({ data: isParsedSuccess.error.errors.map((val) => val.message) });
       }
     }

@@ -9,8 +9,8 @@ authRouter
   .route("/login")
   .post(
     bodyValidation(schema.loginSchema, ["body"]),
-    controller.authController.login,
+    controller.authController.userLogin,
   );
-authRouter.route("/logout").post(controller.authController.login);
+authRouter.route("/logout").post(controller.authController.userLogin);
 
 export default authRouter;
