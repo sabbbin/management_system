@@ -12,7 +12,7 @@ export const Model=({onClose, children}:ModelProps)=>{
         <div className="fixed inset-0 flex items-center justify-center bg-black/20 w-full h-full">
   <div className="relative min-w-1/2 min-h-1/2 bg-white shadow-lg p-8 flex flex-col  rounded-lg overflow-y-auto">
          <header>
-             <Cross1Icon className="float-right cursor-pointer " height={'20'} width={'20'} />
+             <Cross1Icon onClick={onClose}  className="float-right cursor-pointer " height={'20'} width={'20'} />
             
          </header>
    
