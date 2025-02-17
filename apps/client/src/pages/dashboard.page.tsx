@@ -15,22 +15,40 @@ export const Dashboard = () => {
   console.log("daah", navItem);
   return (
     <div className="flex  ">
-       <aside className="w-[350px] h-[100dvh] bg-white" >
-          adsf
+       <aside className="w-[350px] h-[100dvh] p-2  flex flex-col bg-white" >
+           <header className="my-5  bg-gray-100 p-2 rounded-lg border-gray-400">
+                <p> Welcome,  Sabin </p>
+           </header>
+            <main className="flex flex-1">
+               <div className="flex flex-col  px-2   gap-4 ">
+           <p className="text-[16px] font-medium">
+               Dashboard
+           </p>
+           <p className="text-[16px] font-medium">
+            User
+           </p>
+           <p className="text-[16px] font-medium">
+            Artist
+           </p>
+               </div>
+            </main>
+           <footer className="my-5  font-medium text-[16px] p-2 rounded-lg border-gray-400">
+                <p> logout </p>
+           </footer>
        </aside>
-      <main>
-          <section className="grid p-4 overflow-y-auto h-[100dvh] w-[calc(100dvw-350px)] gap-4  md:gap-0 grid-rows-[3fr_7fr_5fr]  md:grid-cols-[8fr_4fr] ">
-  <div className="grid  gap-4 md:grid-flow-col md:col-span-1 md:mr-2 ">
+      <main className="max-h-[100dvh] p-4 overflow-y-auto  w-[calc(100dvw-350px)] ">
+          <section className="grid  overflow-y-auto h-[200dvh] lg:h-[100dvh] gap-4  lg:gap-0 grid-rows-[3fr_7fr_5fr]  lg:grid-cols-[8fr_4fr] ">
+  <div className="grid  gap-4 lg:grid-flow-col lg:col-span-1 lg:mr-2 ">
     {USER_LIST_SUMMARY.map((val) => (
       <Card name={val.name} val={val.val} />
     ))}
   </div>
 
-  <div className="bg-white md:ml-2 md:grid md:col-span-1 md:row-span-3">
+  <div className="bg-white lg:ml-2 lg:grid lg:col-span-1 lg:row-span-3">
     <ActorList />
   </div>
 
-  <div className=" bg-white md:col-span-1  md:mt-4  md:mr-2 md:row-span-3" >
+  <div className=" bg-white lg:col-span-1  lg:mt-4  lg:mr-2 lg:row-span-3" >
     <LastUserList />
   </div>
 </section>
@@ -62,11 +80,11 @@ export const ActorList=()=>{
      )
   
      return (
-        <div className="bg-white p-4 rounded-md">
+        <div className="bg-white p-4 rounded-lg">
            <div className="flex justify-between">
 
            <h1 className="text-[18px] font-medium"> ActorList </h1>
-           <button className="text-[14px]"> Viw all</button>
+           <button className="text-[14px]"> View all</button>
            </div>
             <div className="flex flex-col mt-5">
 
@@ -107,9 +125,9 @@ export const LastUserList=()=>{
 export const Card =({name, val}:ICard)=>{
 
 return (
- <div className="border-[1px] p-2  rounded-md border-gray-300 bg-white">
-      <p> {name}</p>
-      <h1 className="text-[24px]"> {val}</h1>
+ <div className="border-[1px] p-4 flex  flex-col justify-center  rounded-lg border-gray-300 bg-white">
+      <p className="text-[20px]"> {name}</p>
+      <h1 className="text-[28px]"> {val}</h1>
  </div>
 
 );
