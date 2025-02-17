@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { userSchema, UserSchemaType } from "../schema/userSchema";
+import { adminUserSchema, AdminUserSchemaType } from "../schema/userSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useTransition } from "react";
@@ -17,7 +17,7 @@ export const RegisterPage=()=>{
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserSchemaType>({
+  } = useForm<AdminUserSchemaType>({
     defaultValues: {
       
   first_name: "",
@@ -32,24 +32,24 @@ export const RegisterPage=()=>{
 
 
     },
-    resolver: zodResolver(userSchema),
+    resolver: zodResolver(adminUserSchema),
   });
  const navigate= useNavigate();
 
   const [pending, startTransition]= useTransition();
    const {mutate}= useMutation({
-    mutationFn:(data:UserSchemaType)=>
-         axiosInstance().post('/auth/login' ,
+    mutationFn:(data:AdminUserSchemaType)=>
+         axiosInstance().post('/user/admin' ,
           data
          ).then(res=>res.data)}
    )
 
- const handleSubmitFn=(data:UserSchemaType
+ const handleSubmitFn=(data:AdminUserSchemaType
  )=>{
    startTransition(()=>{
         mutate(data, {onSuccess(data, variables, context) {
              if (data.success==true)   {
-               navigate('/')
+               navigate('/admin/login')
              }
               else {
                 toast('Login Failed', {type:'error'})
@@ -59,6 +59,7 @@ export const RegisterPage=()=>{
 
  }
 
+ console.log('****',errors)
 
     return (
        <RegisterPageContent 

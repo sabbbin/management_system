@@ -19,6 +19,13 @@ userRouter
   );
 
 userRouter
+  .route("/admin")
+  .post(
+    bodyValidation(schema.adminUserSchema),
+    controller.userController.createAdmin,
+  );
+
+userRouter
   .route("/")
   .get(
     authMiddleware,

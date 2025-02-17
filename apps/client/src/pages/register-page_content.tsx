@@ -1,6 +1,6 @@
 import { Link}  from "react-router-dom";
 import AppField from "../component/ui/app-field";
-import { UserSchemaType } from "../schema/userSchema";
+import { AdminUserSchemaType } from "../schema/userSchema";
 import { Control, Controller, FieldErrors, UseFormRegister } from "react-hook-form";
 import { BaseSyntheticEvent} from "react";
 
@@ -9,10 +9,10 @@ export interface IRegisterContent {
   
   isPending: boolean;
   handleSubmit: (e?: BaseSyntheticEvent) => Promise<void>;
-  register: UseFormRegister<UserSchemaType>;
-  errors: FieldErrors<UserSchemaType>;
+  register: UseFormRegister<AdminUserSchemaType>;
+  errors: FieldErrors<AdminUserSchemaType>;
   type:'artist'| 'admin' | 'artist_manager';
-    control: Control<UserSchemaType>;
+    control: Control<AdminUserSchemaType>;
 
 }
 

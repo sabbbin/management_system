@@ -1,14 +1,14 @@
-import AppField from "../component/ui/app-field";
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from "react-router-dom";
-import { LoginResponse, loginStateData } from "../store/login-session-store";
+import { useNavigate } from "react-router-dom";
+import { useLoginSessionStore } from "../store/login-session-store";
 import { axiosInstance } from "../hooks/base-api";
-import { createLazyFileRoute } from "@tanstack/react-router";
 import { LoginSchemaType, loginSchema } from "../schema/loginSchema";
 import { LoginPage } from "./login-page";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 interface  ResponseProps<T> {
     status:'success'| 'failure',
@@ -24,6 +24,7 @@ export enum  RESPONSESTATUSENUM {
 
 
  export default function  AdminLoginPage () {
+ const login= useLoginSessionStore(state=>state.login)
 
       const {
     register,
@@ -41,11 +42,26 @@ export enum  RESPONSESTATUSENUM {
   const [pending, startTransition]= useTransition();
 
 
+    const {mutate}= useMutation({
+    mutationFn:(data:LoginSchemaType)=>
+         axiosInstance().post('/auth/login' ,
+          data
+         ).then(res=>res.data)}
+   )
+
  const handleSubmitFn=(data:LoginSchemaType
  )=>{
   
-    startTransition(()=>{
-
+   startTransition(()=>{
+        mutate(data, {onSuccess(data, variables, context) {
+             if (data.success==true)   {
+              login(data)
+               navigate('/')
+             }
+              else {
+                toast('Login Failed', {type:'error'})
+              }
+        },})
     })
 
  }

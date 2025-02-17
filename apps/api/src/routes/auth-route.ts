@@ -11,6 +11,12 @@ authRouter
     bodyValidation(schema.loginSchema, ["body"]),
     controller.authController.userLogin,
   );
+  authRouter
+  .route("/login/admin")
+  .post(
+    bodyValidation(schema.loginSchema, ["body"]),
+    controller.authController.adminLogin,
+  );
 authRouter.route("/logout").post(controller.authController.userLogin);
 
 export default authRouter;

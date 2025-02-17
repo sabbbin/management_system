@@ -1,7 +1,9 @@
 import { loginSchema } from "./loginSchema";
-import { userSchema } from "./userSchema";
+import { adminUserSchema, userSchema } from "./userSchema";
 
 export const schema = {
   loginSchema,
-  userSchema,
+  userSchema, 
+  adminUserSchema,
+
 };

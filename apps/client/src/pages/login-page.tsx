@@ -1,13 +1,8 @@
 import AppField from "../component/ui/app-field";
-
-import { zodResolver } from '@hookform/resolvers/zod';
-import { BaseSyntheticEvent, useTransition } from 'react';
-import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form';
-import { Link, useNavigate } from "react-router-dom";
-import { LoginResponse, loginStateData } from "../store/login-session-store";
-import { axiosInstance } from "../hooks/base-api";
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { LoginSchemaType, loginSchema } from "../schema/loginSchema";
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Link } from "react-router-dom";
+import { LoginSchemaType,} from "../schema/loginSchema";
+import { BaseSyntheticEvent } from "react";
 
 interface  ResponseProps<T> {
     status:'success'| 'failure',
@@ -58,7 +53,7 @@ export interface ILoginContent {
          {...register('user')}
          error={!!errors.user?.message}
          helperText={errors.user?.message}
-          label="Username" />
+          label="Phone No" />
           <AppField
           
          {...register('password')}
