@@ -11,7 +11,7 @@ authRouter
     bodyValidation(schema.loginSchema, ["body"]),
     controller.authController.userLogin,
   );
-  authRouter
+authRouter
   .route("/login/admin")
   .post(
     bodyValidation(schema.loginSchema, ["body"]),

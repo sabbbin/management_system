@@ -11,10 +11,11 @@ export const adminUserSchema = z.object({
   address: z.string().min(1, "address is required"),
 });
 
-
-export const userSchema =  adminUserSchema.merge(z.object({
-  role_id: z.string().min(1, "role_id is required"),
-}));
+export const userSchema = adminUserSchema.merge(
+  z.object({
+    role_id: z.string().min(1, "role_id is required"),
+  }),
+);
 
 export type AdminSchemaType = z.infer<typeof adminUserSchema>;
 export type UserSchemaType = z.infer<typeof userSchema>;

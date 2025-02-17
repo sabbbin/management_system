@@ -19,10 +19,14 @@ const getApiInstance = () => {
       },
       (error) => {
         const originalRequest = error.config;
-        if (error.response && error.response.status === 401 && !originalRequest._retry) {
+        if (
+          error.response &&
+          error.response.status === 401 &&
+          !originalRequest._retry
+        ) {
           originalRequest._retry = true;
           try {
-            const  newToken =
+            const newToken =
               useLoginSessionStore.getState().loginData?.token ?? "";
 
             originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
@@ -35,7 +39,7 @@ const getApiInstance = () => {
             return Promise.reject(err);
           }
         }
-      }
+      },
     );
     return axiosInstance;
   };

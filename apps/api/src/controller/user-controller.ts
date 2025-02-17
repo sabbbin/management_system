@@ -41,9 +41,9 @@ export class UserController {
     }
   };
 
-    createAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  createAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
-       console.log('admin schema')
+      console.log("admin schema");
       const data = req.body as any;
 
       const hashedPass = await decryptedPassword(data.password);
@@ -51,13 +51,13 @@ export class UserController {
         next("Error occurs");
       }
       data.password = hashedPass;
-      data.role_id=1;
+      data.role_id = 1;
 
       const newUser = await this.userService.create(data);
       if (newUser.length > 0) {
-        res.status(200).json({ msg: "successful", success:true });
+        res.status(200).json({ msg: "successful", success: true });
       } else {
-        res.status(200).json({ msg: "failure", success:false });
+        res.status(200).json({ msg: "failure", success: false });
       }
     } catch (err) {
       next(err);

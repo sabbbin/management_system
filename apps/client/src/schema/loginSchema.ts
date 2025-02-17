@@ -4,5 +4,4 @@ export const loginSchema = zod.object({
   password: zod.string().min(1, "password is required"),
 });
 
-
-export type LoginSchemaType = zod.infer<typeof loginSchema>
+export type LoginSchemaType = zod.infer<typeof loginSchema>;

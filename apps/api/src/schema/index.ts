@@ -3,7 +3,6 @@ import { adminUserSchema, userSchema } from "./userSchema";
 
 export const schema = {
   loginSchema,
-  userSchema, 
+  userSchema,
   adminUserSchema,
-
 };
