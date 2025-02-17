@@ -4,6 +4,7 @@ import { useLoginSessionStore } from "../store/login-session-store";
 const getApiInstance = () => {
   let axiosInstance: AxiosInstance | null = null;
   const bearerToken = useLoginSessionStore.getState().loginData?.token ?? "";
+  console.log('bearToken', bearerToken)
   return (): AxiosInstance => {
     if (!axiosInstance) {
       axiosInstance = axios.create({

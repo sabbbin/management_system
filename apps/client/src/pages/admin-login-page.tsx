@@ -50,7 +50,7 @@ export default function AdminLoginPage() {
       mutate(data, {
         onSuccess(data, variables, context) {
           if (data.success == true) {
-            login(data);
+            login(data.data);
             navigate("/");
           } else {
             toast("Login Failed", { type: "error" });

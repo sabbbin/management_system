@@ -34,6 +34,18 @@ userRouter
     controller.userController.get,
   );
 
+  userRouter
+  .route("/dashboard")
+  .get(
+    authMiddleware,
+    bodyValidation(paginationSchema, ["pagination"]),
+    isAuthorizedRole(ROLEENUM.SUPER_ADMIN),
+    controller.userController.getDashboard,
+  );
+
+
+ 
+
 userRouter
   .route("/:id")
   .put(

@@ -20,6 +20,20 @@ export class UserController {
     }
   };
 
+    getDashboard = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      
+      const userList = await this.userService.get(10, 0);
+      res.status(200).json({
+        data: userList,
+        status: "success",
+      });
+    } catch (err) {
+      console.log("erro", err);
+      next(err.message || "Error");
+    }
+  };
+
   create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body as any;
