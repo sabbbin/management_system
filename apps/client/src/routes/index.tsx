@@ -5,6 +5,7 @@ import { Dashboard } from '../pages/dashboard.page';
 import AdminLoginPage from '../pages/admin-login-page';
 import { RegisterPage } from '../pages/admin-register-page';
 import UserLoginPage from '../pages/user-login-page';
+import { HomeLayout } from '../layout/home_layout';
 
 
 export const router= createBrowserRouter([
@@ -25,7 +26,7 @@ export const router= createBrowserRouter([
         )
     },
      {
-         path:'/signup',
+         path:'/admin/signup',
         element: (
           <BaseLayout>
           <RegisterPage />
@@ -34,7 +35,7 @@ export const router= createBrowserRouter([
      },
     {
         path: '*',
-        element: <BaseLayout />,
+        element: <HomeLayout/>,
        
     },
      {
@@ -42,7 +43,7 @@ export const router= createBrowserRouter([
          path: '/',
          element: (
             //  <ProtectedRoute>
-				<BaseLayout />
+				<HomeLayout />
 			// </ProtectedRout
             // e>
 		),
