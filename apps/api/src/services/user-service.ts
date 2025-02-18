@@ -4,12 +4,22 @@ export class UserService extends BaseDatabase {
   get = async (limit: number, offset: number) => {
     return this.rawQuery(
       `
-  SELECT first_name, last_name, email, phone,
+  SELECT id,first_name, last_name, email, phone,
          dob, gender, address
   FROM users
   LIMIT $1 OFFSET $2
 `,
       [limit, offset],
+    );
+  };
+  getTotalCount = async (role_id: number) => {
+    return this.rawQuery(
+      `
+  SELECT count(*)
+  FROM users where role_id=$1
+ 
+`,
+      [role_id],
     );
   };
 

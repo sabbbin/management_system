@@ -34,7 +34,7 @@ userRouter
     controller.userController.get,
   );
 
-  userRouter
+userRouter
   .route("/dashboard")
   .get(
     authMiddleware,
@@ -42,9 +42,6 @@ userRouter
     isAuthorizedRole(ROLEENUM.SUPER_ADMIN),
     controller.userController.getDashboard,
   );
-
-
- 
 
 userRouter
   .route("/:id")

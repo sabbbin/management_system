@@ -2,13 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { LoginSchemaType, loginSchema } from "../schema/loginSchema";
+import { LoginSchemaType, loginSchema } from "../../schema/loginSchema";
 
 import { useMutation } from "@tanstack/react-query";
-import { axiosInstance } from "../hooks/base-api";
+import { axiosInstance } from "../../hooks/base-api";
 import { LoginPage } from "./login-page";
 import { toast } from "react-toastify";
-import { useLoginSessionStore } from "../store/login-session-store";
+import { useLoginSessionStore } from "../../store/login-session-store";
 
 export default function UserLoginPage() {
   const login = useLoginSessionStore((state) => state.login);

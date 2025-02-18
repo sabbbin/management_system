@@ -8,10 +8,16 @@ export class UserController {
   get = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const limit = +req.query["limit"];
-      const pageNo = +req.query["pageNo"];
-      const userList = await this.userService.get(limit, (pageNo - 1) * limit);
+      const offset = +req.query["offset"];
+      const userList = this.userService.get(limit, offset);
+      const userTotalCount = this.userService.getTotalCount(1);
+      const promiseAll = await Promise.all([userTotalCount, userList]);
+      console.log("user lsit", promiseAll, limit, offset);
       res.status(200).json({
-        data: userList,
+        data: {
+          totalCount: (promiseAll[0][0] as any).count,
+          userList: promiseAll[1],
+        },
         status: "success",
       });
     } catch (err) {
@@ -20,9 +26,8 @@ export class UserController {
     }
   };
 
-    getDashboard = async (req: Request, res: Response, next: NextFunction) => {
+  getDashboard = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      
       const userList = await this.userService.get(10, 0);
       res.status(200).json({
         data: userList,

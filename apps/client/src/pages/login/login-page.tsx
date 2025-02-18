@@ -1,7 +1,7 @@
-import AppField from "../component/ui/app-field";
+import AppField from "../../component/ui/app-field";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { LoginSchemaType } from "../schema/loginSchema";
+import { LoginSchemaType } from "../../schema/loginSchema";
 import { BaseSyntheticEvent } from "react";
 
 interface ResponseProps<T> {

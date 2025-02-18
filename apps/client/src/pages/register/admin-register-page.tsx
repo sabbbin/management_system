@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { adminUserSchema, AdminUserSchemaType } from "../schema/userSchema";
+import { adminUserSchema, AdminUserSchemaType } from "../../schema/userSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
-import { axiosInstance } from "../hooks/base-api";
+import { axiosInstance } from "../../hooks/base-api";
 import { RegisterPageContent } from "./register-page_content";
 
 export const RegisterPage = () => {

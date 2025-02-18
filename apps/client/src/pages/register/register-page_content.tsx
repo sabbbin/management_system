@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import AppField from "../component/ui/app-field";
-import { AdminUserSchemaType } from "../schema/userSchema";
 import {
   Control,
   Controller,
@@ -8,6 +6,8 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { BaseSyntheticEvent } from "react";
+import AppField from "../../component/ui/app-field";
+import { AdminUserSchemaType } from "../../schema/userSchema";
 
 export interface IRegisterContent {
   isPending: boolean;
